@@ -18,19 +18,19 @@ with open('data_new.csv', 'r') as f:
     next(reader)
     query1 = """
     CREATE TABLE cargo (
-        id VARCHAR(40) NOT NULL,
+        id VARCHAR(50) NOT NULL,
         company_name VARCHAR(130) NULL,
-        company_id VARCHAR(41) NOT NULL,
+        company_id VARCHAR(50) NOT NULL,
         amount DECIMAL(16,2) NOT NULL,
         status CHAR(30) NOT NULL,
         created_at TIMESTAMP NOT NULL,
         updated_at TIMESTAMP NULL
     );
     """
+
     cursor.execute(query1)
     query = "INSERT INTO cargo (id, company_name, company_id, amount, status, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, to_timestamp(%s, 'YYYY-MM-DD'),to_timestamp(%s, 'YYYY-MM-DD'))"
     # Itera sobre las filas del archivo CSV
-    # cursor.execute(query1)
     for row in reader:
         print(row)
 
@@ -38,4 +38,5 @@ with open('data_new.csv', 'r') as f:
         # Realiza el commit para guardar los cambios en la base de datos
         cnx.commit()
         # Cierre la conexión a la base de datos
+    f.close()
     cnx.close()
